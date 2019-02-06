@@ -1,0 +1,51 @@
+﻿@model IEnumerable<wpBallot.Models.Respuesta_Pregunta_Usuario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RespuestaSeleccionada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha_Respuesta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Respuesta_Pregunta.Texto_Respuesta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RespuestaSeleccionada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha_Respuesta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Respuesta_Pregunta.Texto_Respuesta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_RespuestaUsuario }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_RespuestaUsuario }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_RespuestaUsuario })
+        </td>
+    </tr>
+}
+
+</table>

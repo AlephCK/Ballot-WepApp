@@ -1,0 +1,42 @@
+﻿@model wpBallot.Models.Respuesta_Pregunta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Respuesta_Pregunta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Texto_Respuesta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Texto_Respuesta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RespuestaCorrecta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RespuestaCorrecta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pregunta.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pregunta.Titulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_RespuestaPreg }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

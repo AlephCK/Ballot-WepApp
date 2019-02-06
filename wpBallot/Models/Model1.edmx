@@ -1,0 +1,631 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BallotDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="ID_Autor" />
+          </Key>
+          <Property Name="ID_Autor" Type="int" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="ID_Categoria" />
+          </Key>
+          <Property Name="ID_Categoria" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nchar" MaxLength="10" />
+          <Property Name="ID_Autor" Type="int" />
+          <Property Name="Fecha_Creacion" Type="nchar" MaxLength="10" />
+          <Property Name="ID_Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="ID_Estado" />
+          </Key>
+          <Property Name="ID_Estado" Type="int" Nullable="false" />
+          <Property Name="Titulo" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Nivel">
+          <Key>
+            <PropertyRef Name="ID_Nivel" />
+          </Key>
+          <Property Name="ID_Nivel" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Preguntas">
+          <Key>
+            <PropertyRef Name="ID_Pregunta" />
+          </Key>
+          <Property Name="ID_Pregunta" Type="int" Nullable="false" />
+          <Property Name="Titulo" Type="nchar" MaxLength="10" />
+          <Property Name="ID_Categoria" Type="int" />
+          <Property Name="ID_Nivel" Type="int" />
+          <Property Name="ID_Autor" Type="int" />
+          <Property Name="ID_Estado" Type="int" />
+          <Property Name="Fecha_Creacion" Type="date" />
+        </EntityType>
+        <EntityType Name="Respuesta_Pregunta">
+          <Key>
+            <PropertyRef Name="ID_RespuestaPreg" />
+          </Key>
+          <Property Name="ID_RespuestaPreg" Type="int" Nullable="false" />
+          <Property Name="ID_Pregunta" Type="int" />
+          <Property Name="Texto_Respuesta" Type="nvarchar" MaxLength="50" />
+          <Property Name="RespuestaCorrecta" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Respuesta_Pregunta_Usuario">
+          <Key>
+            <PropertyRef Name="ID_RespuestaUsuario" />
+          </Key>
+          <Property Name="ID_RespuestaUsuario" Type="int" Nullable="false" />
+          <Property Name="ID_RespuestaPreg" Type="int" />
+          <Property Name="ID_Usuario" Type="int" />
+          <Property Name="RespuestaSeleccionada" Type="nchar" MaxLength="10" />
+          <Property Name="Fecha_Respuesta" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nchar" MaxLength="10" />
+          <Property Name="Clave" Type="nchar" MaxLength="10" />
+          <Property Name="Fecha_Registro" Type="date" />
+          <Property Name="Usuario_Activo" Type="nchar" MaxLength="10" />
+          <Property Name="Rol" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Autor_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categoria_Autor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="ID_Autor" />
+            </Principal>
+            <Dependent Role="Categoria">
+              <PropertyRef Name="ID_Autor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categoria_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="ID_Estado" />
+            </Principal>
+            <Dependent Role="Categoria">
+              <PropertyRef Name="ID_Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preguntas_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Preguntas" Type="Self.Preguntas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="ID_Categoria" />
+            </Principal>
+            <Dependent Role="Preguntas">
+              <PropertyRef Name="ID_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preguntas_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Preguntas" Type="Self.Preguntas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="ID_Estado" />
+            </Principal>
+            <Dependent Role="Preguntas">
+              <PropertyRef Name="ID_Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preguntas_Nivel">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="0..1" />
+          <End Role="Preguntas" Type="Self.Preguntas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="ID_Nivel" />
+            </Principal>
+            <Dependent Role="Preguntas">
+              <PropertyRef Name="ID_Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Pregunta_Preguntas">
+          <End Role="Preguntas" Type="Self.Preguntas" Multiplicity="0..1" />
+          <End Role="Respuesta_Pregunta" Type="Self.Respuesta_Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preguntas">
+              <PropertyRef Name="ID_Pregunta" />
+            </Principal>
+            <Dependent Role="Respuesta_Pregunta">
+              <PropertyRef Name="ID_Pregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Pregunta_Usuario_Respuesta_Pregunta">
+          <End Role="Respuesta_Pregunta" Type="Self.Respuesta_Pregunta" Multiplicity="0..1" />
+          <End Role="Respuesta_Pregunta_Usuario" Type="Self.Respuesta_Pregunta_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Respuesta_Pregunta">
+              <PropertyRef Name="ID_RespuestaPreg" />
+            </Principal>
+            <Dependent Role="Respuesta_Pregunta_Usuario">
+              <PropertyRef Name="ID_RespuestaPreg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Pregunta_Usuario_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Respuesta_Pregunta_Usuario" Type="Self.Respuesta_Pregunta_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="Respuesta_Pregunta_Usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BallotDBModelStoreContainer">
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nivel" EntityType="Self.Nivel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Preguntas" EntityType="Self.Preguntas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Respuesta_Pregunta" EntityType="Self.Respuesta_Pregunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Respuesta_Pregunta_Usuario" EntityType="Self.Respuesta_Pregunta_Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Autor_Usuarios" Association="Self.FK_Autor_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Autor" EntitySet="Autor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categoria_Autor" Association="Self.FK_Categoria_Autor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Categoria" EntitySet="Categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categoria_Estado" Association="Self.FK_Categoria_Estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Categoria" EntitySet="Categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preguntas_Categoria" Association="Self.FK_Preguntas_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Preguntas" EntitySet="Preguntas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preguntas_Estado" Association="Self.FK_Preguntas_Estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Preguntas" EntitySet="Preguntas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preguntas_Nivel" Association="Self.FK_Preguntas_Nivel">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Preguntas" EntitySet="Preguntas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Pregunta_Preguntas" Association="Self.FK_Respuesta_Pregunta_Preguntas">
+            <End Role="Preguntas" EntitySet="Preguntas" />
+            <End Role="Respuesta_Pregunta" EntitySet="Respuesta_Pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Pregunta_Usuario_Respuesta_Pregunta" Association="Self.FK_Respuesta_Pregunta_Usuario_Respuesta_Pregunta">
+            <End Role="Respuesta_Pregunta" EntitySet="Respuesta_Pregunta" />
+            <End Role="Respuesta_Pregunta_Usuario" EntitySet="Respuesta_Pregunta_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Pregunta_Usuario_Usuarios" Association="Self.FK_Respuesta_Pregunta_Usuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Respuesta_Pregunta_Usuario" EntitySet="Respuesta_Pregunta_Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BallotDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="ID_Autor" />
+          </Key>
+          <Property Name="ID_Autor" Type="Int32" Nullable="false" />
+          <Property Name="ID_Usuario" Type="Int32" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Autor_Usuarios" FromRole="Autor" ToRole="Usuarios" />
+          <NavigationProperty Name="Categorias" Relationship="Self.FK_Categoria_Autor" FromRole="Autor" ToRole="Categoria" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="ID_Categoria" />
+          </Key>
+          <Property Name="ID_Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ID_Autor" Type="Int32" />
+          <Property Name="Fecha_Creacion" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ID_Estado" Type="Int32" />
+          <NavigationProperty Name="Autor" Relationship="Self.FK_Categoria_Autor" FromRole="Categoria" ToRole="Autor" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK_Categoria_Estado" FromRole="Categoria" ToRole="Estado" />
+          <NavigationProperty Name="Preguntas" Relationship="Self.FK_Preguntas_Categoria" FromRole="Categoria" ToRole="Preguntas" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="ID_Estado" />
+          </Key>
+          <Property Name="ID_Estado" Type="Int32" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Categorias" Relationship="Self.FK_Categoria_Estado" FromRole="Estado" ToRole="Categoria" />
+          <NavigationProperty Name="Preguntas" Relationship="Self.FK_Preguntas_Estado" FromRole="Estado" ToRole="Preguntas" />
+        </EntityType>
+        <EntityType Name="Nivel">
+          <Key>
+            <PropertyRef Name="ID_Nivel" />
+          </Key>
+          <Property Name="ID_Nivel" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Preguntas" Relationship="Self.FK_Preguntas_Nivel" FromRole="Nivel" ToRole="Preguntas" />
+        </EntityType>
+        <EntityType Name="Pregunta">
+          <Key>
+            <PropertyRef Name="ID_Pregunta" />
+          </Key>
+          <Property Name="ID_Pregunta" Type="Int32" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ID_Categoria" Type="Int32" />
+          <Property Name="ID_Nivel" Type="Int32" />
+          <Property Name="ID_Autor" Type="Int32" />
+          <Property Name="ID_Estado" Type="Int32" />
+          <Property Name="Fecha_Creacion" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK_Preguntas_Categoria" FromRole="Preguntas" ToRole="Categoria" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK_Preguntas_Estado" FromRole="Preguntas" ToRole="Estado" />
+          <NavigationProperty Name="Nivel" Relationship="Self.FK_Preguntas_Nivel" FromRole="Preguntas" ToRole="Nivel" />
+          <NavigationProperty Name="Respuesta_Pregunta" Relationship="Self.FK_Respuesta_Pregunta_Preguntas" FromRole="Preguntas" ToRole="Respuesta_Pregunta" />
+        </EntityType>
+        <EntityType Name="Respuesta_Pregunta">
+          <Key>
+            <PropertyRef Name="ID_RespuestaPreg" />
+          </Key>
+          <Property Name="ID_RespuestaPreg" Type="Int32" Nullable="false" />
+          <Property Name="ID_Pregunta" Type="Int32" />
+          <Property Name="Texto_Respuesta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RespuestaCorrecta" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Pregunta" Relationship="Self.FK_Respuesta_Pregunta_Preguntas" FromRole="Respuesta_Pregunta" ToRole="Preguntas" />
+          <NavigationProperty Name="Respuesta_Pregunta_Usuario" Relationship="Self.FK_Respuesta_Pregunta_Usuario_Respuesta_Pregunta" FromRole="Respuesta_Pregunta" ToRole="Respuesta_Pregunta_Usuario" />
+        </EntityType>
+        <EntityType Name="Respuesta_Pregunta_Usuario">
+          <Key>
+            <PropertyRef Name="ID_RespuestaUsuario" />
+          </Key>
+          <Property Name="ID_RespuestaUsuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_RespuestaPreg" Type="Int32" />
+          <Property Name="ID_Usuario" Type="Int32" />
+          <Property Name="RespuestaSeleccionada" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Fecha_Respuesta" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Respuesta_Pregunta" Relationship="Self.FK_Respuesta_Pregunta_Usuario_Respuesta_Pregunta" FromRole="Respuesta_Pregunta_Usuario" ToRole="Respuesta_Pregunta" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Respuesta_Pregunta_Usuario_Usuarios" FromRole="Respuesta_Pregunta_Usuario" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Clave" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Fecha_Registro" Type="DateTime" Precision="0" />
+          <Property Name="Usuario_Activo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Rol" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Autors" Relationship="Self.FK_Autor_Usuarios" FromRole="Usuarios" ToRole="Autor" />
+          <NavigationProperty Name="Respuesta_Pregunta_Usuario" Relationship="Self.FK_Respuesta_Pregunta_Usuario_Usuarios" FromRole="Usuarios" ToRole="Respuesta_Pregunta_Usuario" />
+        </EntityType>
+        <Association Name="FK_Autor_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="Autor">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categoria_Autor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="ID_Autor" />
+            </Principal>
+            <Dependent Role="Categoria">
+              <PropertyRef Name="ID_Autor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categoria_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="ID_Estado" />
+            </Principal>
+            <Dependent Role="Categoria">
+              <PropertyRef Name="ID_Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preguntas_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Preguntas" Type="Self.Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="ID_Categoria" />
+            </Principal>
+            <Dependent Role="Preguntas">
+              <PropertyRef Name="ID_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preguntas_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Preguntas" Type="Self.Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="ID_Estado" />
+            </Principal>
+            <Dependent Role="Preguntas">
+              <PropertyRef Name="ID_Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preguntas_Nivel">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="0..1" />
+          <End Role="Preguntas" Type="Self.Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="ID_Nivel" />
+            </Principal>
+            <Dependent Role="Preguntas">
+              <PropertyRef Name="ID_Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Pregunta_Preguntas">
+          <End Role="Preguntas" Type="Self.Pregunta" Multiplicity="0..1" />
+          <End Role="Respuesta_Pregunta" Type="Self.Respuesta_Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preguntas">
+              <PropertyRef Name="ID_Pregunta" />
+            </Principal>
+            <Dependent Role="Respuesta_Pregunta">
+              <PropertyRef Name="ID_Pregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Pregunta_Usuario_Respuesta_Pregunta">
+          <End Role="Respuesta_Pregunta" Type="Self.Respuesta_Pregunta" Multiplicity="0..1" />
+          <End Role="Respuesta_Pregunta_Usuario" Type="Self.Respuesta_Pregunta_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Respuesta_Pregunta">
+              <PropertyRef Name="ID_RespuestaPreg" />
+            </Principal>
+            <Dependent Role="Respuesta_Pregunta_Usuario">
+              <PropertyRef Name="ID_RespuestaPreg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Pregunta_Usuario_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Respuesta_Pregunta_Usuario" Type="Self.Respuesta_Pregunta_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="Respuesta_Pregunta_Usuario">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BallotDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Autors" EntityType="Self.Autor" />
+          <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <EntitySet Name="Estadoes" EntityType="Self.Estado" />
+          <EntitySet Name="Nivels" EntityType="Self.Nivel" />
+          <EntitySet Name="Preguntas" EntityType="Self.Pregunta" />
+          <EntitySet Name="Respuesta_Pregunta" EntityType="Self.Respuesta_Pregunta" />
+          <EntitySet Name="Respuesta_Pregunta_Usuario" EntityType="Self.Respuesta_Pregunta_Usuario" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Autor_Usuarios" Association="Self.FK_Autor_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Autor" EntitySet="Autors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categoria_Autor" Association="Self.FK_Categoria_Autor">
+            <End Role="Autor" EntitySet="Autors" />
+            <End Role="Categoria" EntitySet="Categorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categoria_Estado" Association="Self.FK_Categoria_Estado">
+            <End Role="Estado" EntitySet="Estadoes" />
+            <End Role="Categoria" EntitySet="Categorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preguntas_Categoria" Association="Self.FK_Preguntas_Categoria">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Preguntas" EntitySet="Preguntas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preguntas_Estado" Association="Self.FK_Preguntas_Estado">
+            <End Role="Estado" EntitySet="Estadoes" />
+            <End Role="Preguntas" EntitySet="Preguntas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preguntas_Nivel" Association="Self.FK_Preguntas_Nivel">
+            <End Role="Nivel" EntitySet="Nivels" />
+            <End Role="Preguntas" EntitySet="Preguntas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Pregunta_Preguntas" Association="Self.FK_Respuesta_Pregunta_Preguntas">
+            <End Role="Preguntas" EntitySet="Preguntas" />
+            <End Role="Respuesta_Pregunta" EntitySet="Respuesta_Pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Pregunta_Usuario_Respuesta_Pregunta" Association="Self.FK_Respuesta_Pregunta_Usuario_Respuesta_Pregunta">
+            <End Role="Respuesta_Pregunta" EntitySet="Respuesta_Pregunta" />
+            <End Role="Respuesta_Pregunta_Usuario" EntitySet="Respuesta_Pregunta_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Pregunta_Usuario_Usuarios" Association="Self.FK_Respuesta_Pregunta_Usuario_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Respuesta_Pregunta_Usuario" EntitySet="Respuesta_Pregunta_Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BallotDBModelStoreContainer" CdmEntityContainer="BallotDBEntities">
+          <EntitySetMapping Name="Autors">
+            <EntityTypeMapping TypeName="BallotDBModel.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="ID_Autor" ColumnName="ID_Autor" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="BallotDBModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_Autor" ColumnName="ID_Autor" />
+                <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+                <ScalarProperty Name="ID_Estado" ColumnName="ID_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estadoes">
+            <EntityTypeMapping TypeName="BallotDBModel.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="ID_Estado" ColumnName="ID_Estado" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nivels">
+            <EntityTypeMapping TypeName="BallotDBModel.Nivel">
+              <MappingFragment StoreEntitySet="Nivel">
+                <ScalarProperty Name="ID_Nivel" ColumnName="ID_Nivel" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preguntas">
+            <EntityTypeMapping TypeName="BallotDBModel.Pregunta">
+              <MappingFragment StoreEntitySet="Preguntas">
+                <ScalarProperty Name="ID_Pregunta" ColumnName="ID_Pregunta" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="ID_Nivel" ColumnName="ID_Nivel" />
+                <ScalarProperty Name="ID_Autor" ColumnName="ID_Autor" />
+                <ScalarProperty Name="ID_Estado" ColumnName="ID_Estado" />
+                <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Respuesta_Pregunta">
+            <EntityTypeMapping TypeName="BallotDBModel.Respuesta_Pregunta">
+              <MappingFragment StoreEntitySet="Respuesta_Pregunta">
+                <ScalarProperty Name="ID_RespuestaPreg" ColumnName="ID_RespuestaPreg" />
+                <ScalarProperty Name="ID_Pregunta" ColumnName="ID_Pregunta" />
+                <ScalarProperty Name="Texto_Respuesta" ColumnName="Texto_Respuesta" />
+                <ScalarProperty Name="RespuestaCorrecta" ColumnName="RespuestaCorrecta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Respuesta_Pregunta_Usuario">
+            <EntityTypeMapping TypeName="BallotDBModel.Respuesta_Pregunta_Usuario">
+              <MappingFragment StoreEntitySet="Respuesta_Pregunta_Usuario">
+                <ScalarProperty Name="ID_RespuestaUsuario" ColumnName="ID_RespuestaUsuario" />
+                <ScalarProperty Name="ID_RespuestaPreg" ColumnName="ID_RespuestaPreg" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="RespuestaSeleccionada" ColumnName="RespuestaSeleccionada" />
+                <ScalarProperty Name="Fecha_Respuesta" ColumnName="Fecha_Respuesta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BallotDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="BallotDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Fecha_Registro" ColumnName="Fecha_Registro" />
+                <ScalarProperty Name="Usuario_Activo" ColumnName="Usuario_Activo" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
