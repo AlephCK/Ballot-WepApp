@@ -199,6 +199,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\ChoiceController.cs" />
     <Compile Include="Controllers\CreateQuizController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -341,6 +342,11 @@
     <Content Include="Views\Question\Details.cshtml" />
     <Content Include="Views\Question\Edit.cshtml" />
     <Content Include="Views\Question\Index.cshtml" />
+    <Content Include="Views\Answer\Create.cshtml" />
+    <Content Include="Views\Answer\Delete.cshtml" />
+    <Content Include="Views\Answer\Details.cshtml" />
+    <Content Include="Views\Answer\Edit.cshtml" />
+    <Content Include="Views\Answer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

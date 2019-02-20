@@ -38,9 +38,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Home", "GetUser", "Quizz")</li>
+                    <li>@Html.ActionLink("Crear Quiz", "Index", "CreateQuiz")</li>
+                    <li>@Html.ActionLink("Crear Preguntas", "Index", "Question")</li>
+                    <li>@Html.ActionLink("Crear Opciones", "Index", "Choice")</li>
+                    <li>@Html.ActionLink("Crear Respuestas", "Index", "Answer")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
