@@ -13,7 +13,8 @@ namespace QuizApplicationMVC5.Controllers
     public class QuizzController : Controller
     {
 
-        public DBQuizEntities dbContext = new DBQuizEntities();
+        private DBQuizEntities dbContext = new DBQuizEntities();
+        private static UserVM userConnected { get; set; }
 
         [HttpGet]
         [AllowAnonymous]
@@ -25,7 +26,7 @@ namespace QuizApplicationMVC5.Controllers
         [HttpPost]
         public ActionResult GetUser(UserVM user)
         {
-            UserVM userConnected = dbContext.Users.Where(u => u.UserName == user.UserName && u.Password == user.Password)
+            userConnected = dbContext.Users.Where(u => u.UserName == user.UserName && u.Password == user.Password)
                                          .Select(u => new UserVM
                                          {
                                              UserID = u.UserID,
@@ -41,7 +42,6 @@ namespace QuizApplicationMVC5.Controllers
             {
                 User_Role_Manager(userConnected);
 
-                Session["UserConnected"] = userConnected;
                 return RedirectToAction("SelectQuizz");
             }
             else
@@ -57,7 +57,7 @@ namespace QuizApplicationMVC5.Controllers
             //Asignación de Permisos
             var ident = new ClaimsIdentity(new[]
             {
-                    new Claim(ClaimTypes.NameIdentifier, userConnected.UserName),
+                    new Claim(ClaimTypes.NameIdentifier, userConnected.UserID.ToString()),
                     new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
                     new Claim(ClaimTypes.Name,userConnected.FullName),
                     }, DefaultAuthenticationTypes.ApplicationCookie);
@@ -100,6 +100,26 @@ namespace QuizApplicationMVC5.Controllers
                 Value = q.QuizID.ToString()
 
             }).ToList();
+
+            //Carga de Datos de Usuario si se borró los datos del Session
+            if(userConnected == null)
+            {
+                string id = User.Identity.GetUserId();
+
+                userConnected = dbContext.Users.Where(u => u.UserID.ToString() == id)
+                                        .Select(u => new UserVM
+                                        {
+                                            UserID = u.UserID,
+                                            UserName = u.UserName,
+                                            Password = u.Password,
+                                            TypeUser = u.TypeUser,
+                                            FullName = u.FullName,
+                                            ProfilImage = u.ProfilImage,
+
+                                        }).FirstOrDefault();
+            }
+
+            Session["UserConnected"] = userConnected;
 
             return View(quiz);
         }

@@ -23,6 +23,7 @@
     </style>
 </head>
 <body>
+
     @if (User.Identity.IsAuthenticated)
     {
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -38,10 +39,14 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Inicio", "SelectQuizz", "Quizz")</li>
-                        <li>@Html.ActionLink("Quiz", "Index", "CreateQuiz")</li>
-                        <li>@Html.ActionLink("Preguntas", "Index", "Question")</li>
-                        <li>@Html.ActionLink("Opciones", "Index", "Choice")</li>
-                        <li>@Html.ActionLink("Respuestas", "Index", "Answer")</li>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Quiz", "Index", "CreateQuiz")</li>
+                            <li>@Html.ActionLink("Preguntas", "Index", "Question")</li>
+                                <li>@Html.ActionLink("Opciones", "Index", "Choice")</li>
+                                <li>@Html.ActionLink("Respuestas", "Index", "Answer")</li>
+                        }
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>

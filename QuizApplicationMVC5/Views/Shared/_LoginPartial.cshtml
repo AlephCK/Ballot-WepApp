@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("¡Bienvenido, " + User.Identity.GetUserName() + "!", "", "", routeValues: null, htmlAttributes: new {  })
+            <label class="navbar-text">¡Bienvenido, @User.Identity.GetUserName()!</label>
         </li>
         <li><a href="#" onclick="@("window.location.href='" + @Url.Action("Log_Off", "Quizz") + "'");">Desloguearse</a></li>
     </ul>
