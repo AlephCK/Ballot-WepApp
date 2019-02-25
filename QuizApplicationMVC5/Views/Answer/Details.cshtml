@@ -1,17 +1,17 @@
 ﻿@model QuizApplicationMVC5.EDMX.Answer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de la Respuesta";
 }
 
-<h2>Details</h2>
+<h2>Detalles de la Respuesta</h2>
 
 <div>
-    <h4>Answer</h4>
+    <h4>Respuesta</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AnswerText)
+            @Html.DisplayName("Respuesta")
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Question.QuestionText)
+            @Html.DisplayName("Pregunta")
         </dt>
 
         <dd>
@@ -29,6 +29,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AnswerID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.AnswerID }) |
+    @Html.ActionLink("Regresar al Listado", "Index")
 </p>
