@@ -165,8 +165,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Users](
 	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[UserName] [varchar](50) NOT NULL,
+	[Password] [varchar](50) NOT NULL,
+	[TypeUser] [varchar](50) NOT NULL,
 	[FullName] [varchar](50) NULL,
-	[Password] [varchar](50) NULL,
 	[ProfilImage] [varchar](50) NULL,
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
