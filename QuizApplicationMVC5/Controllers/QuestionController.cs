@@ -15,6 +15,7 @@ namespace QuizApplicationMVC5.Controllers
         private DBQuizEntities db = new DBQuizEntities();
 
         // GET: Question
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var questions = db.Questions.Include(q => q.Quiz);
@@ -22,6 +23,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         // GET: Question/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         // GET: Question/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.QuizID = new SelectList(db.Quizs, "QuizID", "QuizName");
@@ -48,6 +51,7 @@ namespace QuizApplicationMVC5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "QuestionID,QuestionText,QuizID")] Question question)
         {
             if (ModelState.IsValid)
@@ -62,6 +66,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         // GET: Question/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +87,7 @@ namespace QuizApplicationMVC5.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "QuestionID,QuestionText,QuizID")] Question question)
         {
             if (ModelState.IsValid)
@@ -95,6 +101,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         // GET: Question/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +119,7 @@ namespace QuizApplicationMVC5.Controllers
         // POST: Question/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Question question = db.Questions.Find(id);

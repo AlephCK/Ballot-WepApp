@@ -1,11 +1,12 @@
-﻿using QuizApplicationMVC5.EDMX;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using QuizApplicationMVC5.EDMX;
 using QuizApplicationMVC5.viewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace QuizApplicationMVC5.Controllers
 {
@@ -14,13 +15,8 @@ namespace QuizApplicationMVC5.Controllers
 
         public DBQuizEntities dbContext = new DBQuizEntities();
 
-        // GET: Quizz
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult GetUser()
         {
             return View();
@@ -29,29 +25,72 @@ namespace QuizApplicationMVC5.Controllers
         [HttpPost]
         public ActionResult GetUser(UserVM user)
         {
-            UserVM userConnected = dbContext.Users.Where(u => u.FullName == user.FullName)
+            UserVM userConnected = dbContext.Users.Where(u => u.UserName == user.UserName && u.Password == user.Password)
                                          .Select(u => new UserVM
-                                            {
-                                                UserID = u.UserID,
-                                                FullName = u.FullName,
-                                                ProfilImage = u.ProfilImage,
+                                         {
+                                             UserID = u.UserID,
+                                             UserName = u.UserName,
+                                             Password = u.Password,
+                                             TypeUser = u.TypeUser,
+                                             FullName = u.FullName,
+                                             ProfilImage = u.ProfilImage,
 
-                                            }).FirstOrDefault();
+                                         }).FirstOrDefault();
 
-            if(userConnected != null)
+            if (userConnected != null)
             {
+                User_Role_Manager(userConnected);
+
                 Session["UserConnected"] = userConnected;
                 return RedirectToAction("SelectQuizz");
             }
             else
             {
-                ViewBag.Msg = "Sorry : user is not found !!";
+                ViewBag.Msg = "Sorry : user and/or password were incorrect !!";
                 return View();
             }
 
         }
 
+        private void User_Role_Manager(UserVM userConnected)
+        {
+            //Asignación de Permisos
+            var ident = new ClaimsIdentity(new[]
+            {
+                    new Claim(ClaimTypes.NameIdentifier, userConnected.UserName),
+                    new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
+                    new Claim(ClaimTypes.Name,userConnected.FullName),
+                    }, DefaultAuthenticationTypes.ApplicationCookie);
+
+            //Asignación del rol correspondiente
+            switch (userConnected.TypeUser)
+            {
+                case "Admin":
+                    ident.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                    break;
+
+                case "NormalUser":
+                    ident.AddClaim(new Claim(ClaimTypes.Role, "NormalUser"));
+                    break;
+            }
+
+
+            HttpContext.GetOwinContext().Authentication.SignIn(
+            new AuthenticationProperties { IsPersistent = false }, ident);
+        }
+
         [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Log_Off()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut(
+            new AuthenticationProperties { IsPersistent = false });
+
+            return RedirectToAction("GetUser");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin,NormalUser")]
         public ActionResult SelectQuizz()
         {
             QuizVM quiz = new viewModels.QuizVM();
@@ -66,6 +105,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,NormalUser")]
         public ActionResult SelectQuizz(QuizVM quiz)
         {
             QuizVM quizSelected = dbContext.Quizs.Where(q => q.QuizID == quiz.QuizID).Select(q => new QuizVM
@@ -75,7 +115,7 @@ namespace QuizApplicationMVC5.Controllers
 
             }).FirstOrDefault();
 
-            if(quizSelected != null)
+            if (quizSelected != null)
             {
                 Session["SelectedQuiz"] = quizSelected;
 
@@ -86,6 +126,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,NormalUser")]
         public ActionResult QuizTest()
         {
             QuizVM quizSelected = Session["SelectedQuiz"] as QuizVM;
@@ -93,17 +134,18 @@ namespace QuizApplicationMVC5.Controllers
 
             if (quizSelected != null)
             {
-                 questions = dbContext.Questions.Where(q => q.Quiz.QuizID == quizSelected.QuizID)
-                    .Select(q => new QuestionVM
-                    {
-                        QuestionID = q.QuestionID,
-                        QuestionText = q.QuestionText,
-                        Choices = q.Choices.Select(c => new ChoiceVM {
-                            ChoiceID = c.ChoiceID,
-                            ChoiceText = c.ChoiceText
-                        }).ToList()
+                questions = dbContext.Questions.Where(q => q.Quiz.QuizID == quizSelected.QuizID)
+                   .Select(q => new QuestionVM
+                   {
+                       QuestionID = q.QuestionID,
+                       QuestionText = q.QuestionText,
+                       Choices = q.Choices.Select(c => new ChoiceVM
+                       {
+                           ChoiceID = c.ChoiceID,
+                           ChoiceText = c.ChoiceText
+                       }).ToList()
 
-                    }).AsQueryable();
+                   }).AsQueryable();
 
 
             }
@@ -112,11 +154,12 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,NormalUser")]
         public ActionResult QuizTest(List<QuizAnswersVM> resultQuiz)
         {
             List<QuizAnswersVM> finalResultQuiz = new List<viewModels.QuizAnswersVM>();
 
-            foreach(QuizAnswersVM answser in resultQuiz)
+            foreach (QuizAnswersVM answser in resultQuiz)
             {
                 QuizAnswersVM result = dbContext.Answers.Where(a => a.QuestionID == answser.QuestionID).Select(a => new QuizAnswersVM
                 {
