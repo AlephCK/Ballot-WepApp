@@ -1,18 +1,18 @@
 ﻿@model QuizApplicationMVC5.EDMX.Quiz
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Quiz";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar Quiz</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Estás seguro que desea eliminar este Quiz?</h3>
 <div>
     <h4>Quiz</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.QuizName)
+            @Html.DisplayName("Nombre del Quiz")
         </dt>
 
         <dd>
@@ -20,7 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Category)
+            @Html.DisplayName("Categoría")
         </dt>
 
         <dd>
@@ -28,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Author)
+            @Html.DisplayName("Autor")
         </dt>
 
         <dd>
@@ -41,8 +41,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar al Listado", "Index")
         </div>
     }
 </div>

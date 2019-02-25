@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<QuizApplicationMVC5.EDMX.Quiz>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quizs";
 }
 
-<h2>Index</h2>
+<h2>Quizs</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo Quiz", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.QuizName)
+            @Html.DisplayName("Nombre del Quiz")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Category)
+            @Html.DisplayName("Categoría")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Author)
+            @Html.DisplayName("Autor")
         </th>
         <th></th>
     </tr>
@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.Author)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.QuizID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.QuizID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.QuizID })
+            @Html.ActionLink("Editar", "Edit", new { id=item.QuizID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.QuizID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.QuizID })
         </td>
     </tr>
 }
