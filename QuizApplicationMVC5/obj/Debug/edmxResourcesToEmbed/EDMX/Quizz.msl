@@ -41,6 +41,8 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="DBQuizModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="TypeUser" ColumnName="TypeUser" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />

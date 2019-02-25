@@ -9,6 +9,9 @@ namespace QuizApplicationMVC5.viewModels
     public class UserVM
     {
         public int UserID { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string TypeUser { get; set; }
         public string FullName { get; set; }
         public string ProfilImage { get; set; }
     }

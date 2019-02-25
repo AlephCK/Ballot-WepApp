@@ -38,8 +38,10 @@
       <PropertyRef Name="UserID" />
     </Key>
     <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TypeUser" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="FullName" Type="varchar" MaxLength="50" />
-    <Property Name="Password" Type="varchar" MaxLength="50" />
     <Property Name="ProfilImage" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_Answers_Questions">
