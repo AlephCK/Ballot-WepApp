@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<QuizApplicationMVC5.EDMX.Choice>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Opciones";
 }
 
-<h2>Index</h2>
+<h2>Opciones</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nueva Opción", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ChoiceText)
+            @Html.DisplayName("Opción")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Question.QuestionText)
+            @Html.DisplayName("Pregunta")
         </th>
         <th></th>
     </tr>
@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.Question.QuestionText)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ChoiceID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceID })
+            @Html.ActionLink("Editar", "Edit", new { id=item.ChoiceID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.ChoiceID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.ChoiceID })
         </td>
     </tr>
 }
