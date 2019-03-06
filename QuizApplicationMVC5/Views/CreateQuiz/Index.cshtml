@@ -4,42 +4,46 @@
     ViewBag.Title = "Quizs";
 }
 
-<h2>Quizs</h2>
+<h1 style="color: #207ce5;">Quizs</h1>
 
 <p>
     @Html.ActionLink("Crear Nuevo Quiz", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Nombre del Quiz")
-        </th>
-        <th>
-            @Html.DisplayName("Categoría")
-        </th>
-        <th>
-            @Html.DisplayName("Autor")
-        </th>
-        <th></th>
-    </tr>
+    
+        <tr class="bg-primary">
+            <th>
+                @Html.DisplayName("Nombre del Quiz")
+            </th>
+            <th>
+                @Html.DisplayName("Categoría")
+            </th>
+            <th>
+                @Html.DisplayName("Autor")
+            </th>
+            <th></th>
+        </tr>
+    
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuizName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.QuizID }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.QuizID }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.QuizID })
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.QuizName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.QuizID }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.QuizID }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.QuizID })
-        </td>
-    </tr>
-}
+
 
 </table>

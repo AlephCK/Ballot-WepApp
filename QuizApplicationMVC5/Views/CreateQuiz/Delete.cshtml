@@ -4,7 +4,7 @@
     ViewBag.Title = "Eliminar Quiz";
 }
 
-<h2>Eliminar Quiz</h2>
+<h1 style="color: #207ce5;">Eliminar Quiz</h1>
 
 <h3>¿Estás seguro que desea eliminar este Quiz?</h3>
 <div>
@@ -41,7 +41,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            <input type="submit" value="Eliminar" class="btn btn-primary" /> |
             @Html.ActionLink("Regresar al Listado", "Index")
         </div>
     }
