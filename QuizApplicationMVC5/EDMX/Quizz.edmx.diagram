@@ -13,6 +13,9 @@
         <AssociationConnector Association="DBQuizModel.FK_Answers_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="DBQuizModel.FK_Choices_Questions" ManuallyRouted="false" />
         <AssociationConnector Association="DBQuizModel.FK_Questions_Quiz" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBQuizModel.sysdiagram" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DBQuizModel.UserAnswer" Width="1.5" PointX="5.25" PointY="6.25" />
+        <AssociationConnector Association="DBQuizModel.FK_UserAnswers_Questions" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

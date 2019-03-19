@@ -102,7 +102,7 @@ namespace QuizApplicationMVC5.Controllers
             }).ToList();
 
             //Carga de Datos de Usuario si se borró los datos del Session
-            if(userConnected == null)
+            if (userConnected == null)
             {
                 string id = User.Identity.GetUserId();
 
@@ -179,6 +179,7 @@ namespace QuizApplicationMVC5.Controllers
         {
             List<QuizAnswersVM> finalResultQuiz = new List<viewModels.QuizAnswersVM>();
 
+            UserAnswer ua = new UserAnswer();
             foreach (QuizAnswersVM answser in resultQuiz)
             {
                 QuizAnswersVM result = dbContext.Answers.Where(a => a.QuestionID == answser.QuestionID).Select(a => new QuizAnswersVM
@@ -190,10 +191,18 @@ namespace QuizApplicationMVC5.Controllers
                 }).FirstOrDefault();
 
                 finalResultQuiz.Add(result);
+
+                ua.QuestionID = result.QuestionID;
+                ua.UserAnswerText = result.AnswerQ;
+                dbContext.UserAnswers.Add(ua);
+                dbContext.SaveChanges();
+
             }
 
             return Json(new { result = finalResultQuiz }, JsonRequestBehavior.AllowGet);
         }
+
+
 
 
     }

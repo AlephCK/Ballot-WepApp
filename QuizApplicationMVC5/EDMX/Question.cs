@@ -26,6 +26,8 @@ public partial class Question
 
         this.Choices = new HashSet<Choice>();
 
+        this.UserAnswers = new HashSet<UserAnswer>();
+
     }
 
 
@@ -46,6 +48,10 @@ public partial class Question
     public virtual ICollection<Choice> Choices { get; set; }
 
     public virtual Quiz Quiz { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<UserAnswer> UserAnswers { get; set; }
 
 }
 

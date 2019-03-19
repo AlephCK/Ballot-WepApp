@@ -42,6 +42,10 @@ public partial class DBQuizEntities : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+
+    public virtual DbSet<UserAnswer> UserAnswers { get; set; }
+
 }
 
 }

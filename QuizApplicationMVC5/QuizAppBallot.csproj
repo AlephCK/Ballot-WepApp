@@ -233,7 +233,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Quizz.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EDMX\sysdiagram.cs">
+      <DependentUpon>Quizz.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDMX\User.cs">
+      <DependentUpon>Quizz.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\UserAnswer.cs">
       <DependentUpon>Quizz.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

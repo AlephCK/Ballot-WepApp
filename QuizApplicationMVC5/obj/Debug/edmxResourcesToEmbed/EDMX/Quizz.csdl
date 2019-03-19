@@ -28,6 +28,7 @@
     <NavigationProperty Name="Answers" Relationship="Self.FK_Answers_Questions" FromRole="Questions" ToRole="Answers" />
     <NavigationProperty Name="Choices" Relationship="Self.FK_Choices_Questions" FromRole="Questions" ToRole="Choices" />
     <NavigationProperty Name="Quiz" Relationship="Self.FK_Questions_Quiz" FromRole="Questions" ToRole="Quiz" />
+    <NavigationProperty Name="UserAnswers" Relationship="DBQuizModel.FK_UserAnswers_Questions" FromRole="Question" ToRole="UserAnswer" />
   </EntityType>
   <EntityType Name="Quiz">
     <Key>
@@ -104,5 +105,42 @@
       <End Role="Quiz" EntitySet="Quizs" />
       <End Role="Questions" EntitySet="Questions" />
     </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="DBQuizModel.sysdiagram" />
+    <EntitySet Name="UserAnswers" EntityType="DBQuizModel.UserAnswer" />
+    <AssociationSet Name="FK_UserAnswers_Questions" Association="DBQuizModel.FK_UserAnswers_Questions">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="UserAnswer" EntitySet="UserAnswers" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserAnswer">
+    <Key>
+      <PropertyRef Name="UserAnswerID" />
+    </Key>
+    <Property Name="UserAnswerID" Type="Int32" Nullable="false" />
+    <Property Name="UserAnswerText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="QuestionID" Type="Int32" />
+    <NavigationProperty Name="Question" Relationship="DBQuizModel.FK_UserAnswers_Questions" FromRole="UserAnswer" ToRole="Question" />
+  </EntityType>
+  <Association Name="FK_UserAnswers_Questions">
+    <End Type="DBQuizModel.Question" Role="Question" Multiplicity="0..1" />
+    <End Type="DBQuizModel.UserAnswer" Role="UserAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="QuestionID" />
+      </Principal>
+      <Dependent Role="UserAnswer">
+        <PropertyRef Name="QuestionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
