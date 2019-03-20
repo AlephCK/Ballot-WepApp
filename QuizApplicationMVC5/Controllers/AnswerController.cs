@@ -56,15 +56,24 @@ namespace QuizApplicationMVC5.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Answers.Add(answer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                int check_no_answers = db.Answers.Where(y => y.QuestionID == answer.QuestionID).Count();
+
+                if (check_no_answers >= 1)
+                    ModelState.AddModelError("", "Error añadiendo la respuesta. ¡Una pregunta no puede tener más de una respuesta!");
+
+                else
+                {
+                    db.Answers.Add(answer);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "QuestionText", answer.QuestionID);
             return View(answer);
         }
 
+        static int? question_id;
         // GET: Answer/Edit/5
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
@@ -78,7 +87,10 @@ namespace QuizApplicationMVC5.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "QuestionText", answer.QuestionID);
+            question_id = answer.QuestionID;
+
             return View(answer);
         }
 
@@ -92,10 +104,13 @@ namespace QuizApplicationMVC5.Controllers
         {
             if (ModelState.IsValid)
             {
+                answer.QuestionID = question_id;
                 db.Entry(answer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
+
             ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "QuestionText", answer.QuestionID);
             return View(answer);
         }
