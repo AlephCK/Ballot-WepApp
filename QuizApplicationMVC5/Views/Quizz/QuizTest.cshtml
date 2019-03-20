@@ -1,28 +1,33 @@
 ﻿@model IQueryable<QuizApplicationMVC5.viewModels.QuestionVM>
 
-@{ 
+@{
     int count = 1, countR = 0;
 }
 
+<div id="background">
+
+    <img src="../../images/question-mark-wallpaper.jpg" class="stretch" alt="" />
+
+</div>
 
 <div class="container">
 
-   <!-- User Info -->
-    <div class="userConnected" style="border:2px dashed #cecaca; border-radius: 10px; margin-top: 3%;">
+    <!-- User Info -->
+    <div class="userConnected" style="border:2px dashed #cecaca; border-radius: 10px; margin-top: 3%; background-color:white;">
 
         @{ Html.RenderPartial("_UserInfo");}
-
+        <br>
     </div>
 
     <div class="Quiz">
 
         <h4 style="margin-top: 4%;"> <span class="label label-info">Questions :</span> </h4>
 
-      @if (Model != null && Model.Any())
-      {
+        @if (Model != null && Model.Any())
+        {
 
-              foreach (var question in Model)
-              {
+            foreach (var question in Model)
+            {
                 <div class="BlockQ" style="border: 1px solid #bdbdbd; width: 75%; border-radius: 4px; margin-top: 40px; background-color: #f0ffff; padding: 8px;">
 
                     <div class="Question" style="padding: 2%;">
@@ -33,29 +38,29 @@
 
                     <div class="Choices" style="margin-left: 8%;">
 
-                        @foreach (var choice in question.Choices)
+                        @foreach (var choice in question.listado_opciones)
                         {
-                                <label class="radio-inline">
-                                    <input type="radio" name="@string.Format("{0}{1}", "inlineRadioOptions",count)" id="@string.Format("{0}{1}", "inlineRadio", countR)" value="@choice.ChoiceText" style="margin-left: -16px;"> @choice.ChoiceText
-                                </label><br />
+                            <label class="radio-inline">
+                                <input type="radio" name="@string.Format("{0}{1}", "inlineRadioOptions",count)" id="@string.Format("{0}{1}", "inlineRadio", countR)" value="@choice" style="margin-left: -16px;"> @choice
+                            </label><br />
                             countR++;
                         }
 
                     </div> <!--END Choices-->
-                 
-                <div id="@string.Format("{0}{1}{2}", "Ans","Q", count)">
+
+                    <div id="@string.Format("{0}{1}{2}", "Ans","Q", count)">
 
 
-                </div>
+                    </div>
 
                 </div> <!-- END BlockQ -->
-                  count++;
-              }
+                count++;
+            }
             <span id="countQuections" style="display:none;">@count</span>
             <button type="button" id="SubmitQuiz" class="btn btn-default" style="margin-top: 10px;"><span class="glyphicon glyphicon-ok"></span>   Submit Quiz </button>
-      
 
-      }
+
+        }
 
     </div> <!-- END QUIZ -->
 
@@ -134,6 +139,3 @@
 
     </script>
 }
-
-
-

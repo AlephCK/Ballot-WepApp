@@ -4,27 +4,27 @@
     <EntitySetMapping Name="Answers">
       <EntityTypeMapping TypeName="DBQuizModel.Answer">
         <MappingFragment StoreEntitySet="Answers">
-          <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
-          <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
           <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+          <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Choices">
       <EntityTypeMapping TypeName="DBQuizModel.Choice">
         <MappingFragment StoreEntitySet="Choices">
-          <ScalarProperty Name="ChoiceID" ColumnName="ChoiceID" />
-          <ScalarProperty Name="ChoiceText" ColumnName="ChoiceText" />
           <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="ChoiceText" ColumnName="ChoiceText" />
+          <ScalarProperty Name="ChoiceID" ColumnName="ChoiceID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Questions">
       <EntityTypeMapping TypeName="DBQuizModel.Question">
         <MappingFragment StoreEntitySet="Questions">
-          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-          <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
           <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+          <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -33,40 +33,29 @@
         <MappingFragment StoreEntitySet="Quiz">
           <ScalarProperty Name="Author" ColumnName="Author" />
           <ScalarProperty Name="Category" ColumnName="Category" />
-          <ScalarProperty Name="QuizID" ColumnName="QuizID" />
           <ScalarProperty Name="QuizName" ColumnName="QuizName" />
+          <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAnswers">
+      <EntityTypeMapping TypeName="DBQuizModel.UserAnswer">
+        <MappingFragment StoreEntitySet="UserAnswer">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="UserAnswerText" ColumnName="UserAnswerText" />
+          <ScalarProperty Name="UserAnswerID" ColumnName="UserAnswerID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="DBQuizModel.User">
         <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="TypeUser" ColumnName="TypeUser" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="ProfilImage" ColumnName="ProfilImage" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="DBQuizModel.sysdiagram">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="definition" ColumnName="definition" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserAnswers">
-      <EntityTypeMapping TypeName="DBQuizModel.UserAnswer">
-        <MappingFragment StoreEntitySet="UserAnswers">
-          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-          <ScalarProperty Name="UserAnswerText" ColumnName="UserAnswerText" />
-          <ScalarProperty Name="UserAnswerID" ColumnName="UserAnswerID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="TypeUser" ColumnName="TypeUser" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

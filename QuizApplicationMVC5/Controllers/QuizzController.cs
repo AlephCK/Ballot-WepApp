@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security;
 using QuizApplicationMVC5.EDMX;
 using QuizApplicationMVC5.viewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -152,6 +153,8 @@ namespace QuizApplicationMVC5.Controllers
             QuizVM quizSelected = Session["SelectedQuiz"] as QuizVM;
             IQueryable<QuestionVM> questions = null;
 
+            Random random = new Random();
+
             if (quizSelected != null)
             {
                 questions = dbContext.Questions.Where(q => q.Quiz.QuizID == quizSelected.QuizID)
@@ -163,11 +166,21 @@ namespace QuizApplicationMVC5.Controllers
                        {
                            ChoiceID = c.ChoiceID,
                            ChoiceText = c.ChoiceText
-                       }).ToList()
+                       }).ToList(),
+                       Answers = q.Answers.Select(c => new AnswerVM
+                       {
+                           AnswerID = c.AnswerID,
+                           AnswerText = c.AnswerText
+                       }).ToList(),
+
+                       listado_opciones = q.Choices.Select(x => x.ChoiceText).Union(q.Answers.Select(y => y.AnswerText)).ToList()
 
                    }).AsQueryable();
 
-
+            }
+            else
+            {
+                return RedirectToAction("SelectQuizz");
             }
 
             return View(questions);
@@ -179,7 +192,6 @@ namespace QuizApplicationMVC5.Controllers
         {
             List<QuizAnswersVM> finalResultQuiz = new List<viewModels.QuizAnswersVM>();
 
-            UserAnswer ua = new UserAnswer();
             foreach (QuizAnswersVM answser in resultQuiz)
             {
                 QuizAnswersVM result = dbContext.Answers.Where(a => a.QuestionID == answser.QuestionID).Select(a => new QuizAnswersVM
@@ -191,18 +203,10 @@ namespace QuizApplicationMVC5.Controllers
                 }).FirstOrDefault();
 
                 finalResultQuiz.Add(result);
-
-                ua.QuestionID = result.QuestionID;
-                ua.UserAnswerText = result.AnswerQ;
-                dbContext.UserAnswers.Add(ua);
-                dbContext.SaveChanges();
-
             }
 
             return Json(new { result = finalResultQuiz }, JsonRequestBehavior.AllowGet);
         }
-
-
 
 
     }

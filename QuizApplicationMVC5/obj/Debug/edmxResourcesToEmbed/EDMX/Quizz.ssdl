@@ -33,23 +33,13 @@
     <Property Name="Category" Type="varchar" MaxLength="80" />
     <Property Name="Author" Type="varchar" MaxLength="80" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <EntityType Name="UserAnswers">
+  <EntityType Name="UserAnswer">
     <Key>
       <PropertyRef Name="UserAnswerID" />
     </Key>
-    <Property Name="UserAnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserAnswerText" Type="varchar(max)" />
-    <Property Name="QuestionID" Type="int" />
+    <Property Name="UserAnswerID" Type="int" Nullable="false" />
+    <Property Name="UserAnswerText" Type="varchar(max)" Nullable="false" />
+    <Property Name="QuestionID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -98,14 +88,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserAnswers_Questions">
-    <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
-    <End Role="UserAnswers" Type="Self.UserAnswers" Multiplicity="*" />
+  <Association Name="FK_UserAnswer_Questions">
+    <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+    <End Role="UserAnswer" Type="Self.UserAnswer" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Questions">
         <PropertyRef Name="QuestionID" />
       </Principal>
-      <Dependent Role="UserAnswers">
+      <Dependent Role="UserAnswer">
         <PropertyRef Name="QuestionID" />
       </Dependent>
     </ReferentialConstraint>
@@ -115,8 +105,7 @@
     <EntitySet Name="Choices" EntityType="Self.Choices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="UserAnswers" EntityType="Self.UserAnswers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAnswer" EntityType="Self.UserAnswer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Answers_Questions" Association="Self.FK_Answers_Questions">
       <End Role="Questions" EntitySet="Questions" />
@@ -130,9 +119,9 @@
       <End Role="Quiz" EntitySet="Quiz" />
       <End Role="Questions" EntitySet="Questions" />
     </AssociationSet>
-    <AssociationSet Name="FK_UserAnswers_Questions" Association="Self.FK_UserAnswers_Questions">
+    <AssociationSet Name="FK_UserAnswer_Questions" Association="Self.FK_UserAnswer_Questions">
       <End Role="Questions" EntitySet="Questions" />
-      <End Role="UserAnswers" EntitySet="UserAnswers" />
+      <End Role="UserAnswer" EntitySet="UserAnswer" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

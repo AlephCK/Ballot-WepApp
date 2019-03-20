@@ -4,12 +4,18 @@
     ViewBag.Title = "¡Realice un Quiz!";
 }
 
+<div id="background">
+
+    <img src="../../images/question-mark-wallpaper.jpg" class="stretch" alt="" />
+
+</div>
+
 <div class="container">
 
-    <div class="userConnected" style="border:2px dashed #cecaca; border-radius: 10px; margin-top: 3%;">
+    <div class="userConnected" style="border:2px dashed #cecaca; border-radius: 10px; margin-top: 3%; background-color:white;">
 
         @{ Html.RenderPartial("_UserInfo");}
-
+        <br>
     </div>
 
 
@@ -21,7 +27,7 @@
 
                 @using (Html.BeginForm("SelectQuizz", "Quizz", FormMethod.Post))
                 {
-                    @Html.DropDownListFor(model => model.QuizID, Model.ListOfQuizz, new { @class = "form-control", @style = "margin-left:51px;" } )<br/>
+                    @Html.DropDownListFor(model => model.QuizID, Model.ListOfQuizz, new { @class = "form-control", @style = "margin-left:51px;" })<br />
                     <button type="submit" id="Enter" class="btn btn-success btn-lg" style="width:100%;"><span class="glyphicon glyphicon-ok"></span>   Let's GO </button>
                 }
 
@@ -31,4 +37,3 @@
     </div>
 
 </div>  <!-- END CONTAINER -->
-

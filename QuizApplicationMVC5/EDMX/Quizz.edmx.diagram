@@ -5,17 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b232edad6efe46f79b158a5adf3057fc" Name="Diagram1">
-        <EntityTypeShape EntityType="DBQuizModel.Answer" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" FillColor="Brown" />
-        <EntityTypeShape EntityType="DBQuizModel.Choice" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" FillColor="255, 128, 255" />
-        <EntityTypeShape EntityType="DBQuizModel.Question" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBQuizModel.Quiz" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" FillColor="255, 255, 128" />
-        <EntityTypeShape EntityType="DBQuizModel.User" Width="1.5" PointX="1" PointY="4.875" IsExpanded="true" FillColor="Olive" />
-        <AssociationConnector Association="DBQuizModel.FK_Answers_Questions" ManuallyRouted="false" />
-        <AssociationConnector Association="DBQuizModel.FK_Choices_Questions" ManuallyRouted="false" />
-        <AssociationConnector Association="DBQuizModel.FK_Questions_Quiz" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DBQuizModel.sysdiagram" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DBQuizModel.Answer" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="DBQuizModel.Choice" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="DBQuizModel.Question" Width="1.5" PointX="3" PointY="3.375" />
+        <EntityTypeShape EntityType="DBQuizModel.Quiz" Width="1.5" PointX="0.75" PointY="3.625" />
         <EntityTypeShape EntityType="DBQuizModel.UserAnswer" Width="1.5" PointX="5.25" PointY="6.25" />
-        <AssociationConnector Association="DBQuizModel.FK_UserAnswers_Questions" />
+        <EntityTypeShape EntityType="DBQuizModel.User" Width="1.5" PointX="0.75" PointY="6.75" />
+        <AssociationConnector Association="DBQuizModel.FK_Answers_Questions" />
+        <AssociationConnector Association="DBQuizModel.FK_Choices_Questions" />
+        <AssociationConnector Association="DBQuizModel.FK_Questions_Quiz" />
+        <AssociationConnector Association="DBQuizModel.FK_UserAnswer_Questions" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

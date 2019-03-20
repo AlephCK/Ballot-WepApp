@@ -6,6 +6,35 @@
     <title>@ViewBag.Title - Ballot</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
+        #background {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            z-index: -1;
+        }
+
+        .stretch {
+            width: 100%;
+            height: 100%;
+        }
+
+        .Choices label {
+            background-color: #fff;
+            padding: 7px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            border: 1px solid #d0c9c9;
+        }
+
+        div .answer, .radio-inline {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
@@ -29,8 +58,8 @@
                         {
                             <li>@Html.ActionLink("Quiz", "Index", "CreateQuiz")</li>
                             <li>@Html.ActionLink("Preguntas", "Index", "Question")</li>
-                                <li>@Html.ActionLink("Opciones", "Index", "Choice")</li>
-                                <li>@Html.ActionLink("Respuestas", "Index", "Answer")</li>
+                            <li>@Html.ActionLink("Opciones", "Index", "Choice")</li>
+                            <li>@Html.ActionLink("Respuestas", "Index", "Answer")</li>
                         }
                     </ul>
                     @Html.Partial("_LoginPartial")
@@ -45,7 +74,7 @@
         {
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - Ballot</p>
+                <p><b>&copy; @DateTime.Now.Year - Ballot</b></p>
             </footer>
         }
     </div>

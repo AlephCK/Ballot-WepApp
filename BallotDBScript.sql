@@ -180,6 +180,25 @@ GO
 ALTER TABLE [dbo].[Users]  WITH CHECK ADD CHECK  (([TypeUser]='Admin' OR [TypeUser]='NormalUser'))
 GO
 
+CREATE TABLE [dbo].[UserAnswer](
+	[UserAnswerID] [int] NOT NULL,
+	[UserAnswerText] [varchar](max) NOT NULL,
+	[QuestionID] [int] NOT NULL,
+ CONSTRAINT [PK_UserAnswer] PRIMARY KEY CLUSTERED 
+(
+	[UserAnswerID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[UserAnswer]  WITH CHECK ADD  CONSTRAINT [FK_UserAnswer_Questions] FOREIGN KEY([QuestionID])
+REFERENCES [dbo].[Questions] ([QuestionID])
+GO
+
+ALTER TABLE [dbo].[UserAnswer] CHECK CONSTRAINT [FK_UserAnswer_Questions]
+GO
+
 ALTER TABLE [dbo].[Answers]  WITH CHECK ADD  CONSTRAINT [FK_Answers_Questions] FOREIGN KEY([QuestionID])
 REFERENCES [dbo].[Questions] ([QuestionID])
 GO
