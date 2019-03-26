@@ -38,15 +38,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserAnswers">
-      <EntityTypeMapping TypeName="DBQuizModel.UserAnswer">
-        <MappingFragment StoreEntitySet="UserAnswer">
-          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-          <ScalarProperty Name="UserAnswerText" ColumnName="UserAnswerText" />
-          <ScalarProperty Name="UserAnswerID" ColumnName="UserAnswerID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="DBQuizModel.User">
         <MappingFragment StoreEntitySet="Users">
@@ -56,6 +47,16 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAnswers">
+      <EntityTypeMapping TypeName="DBQuizModel.UserAnswer">
+        <MappingFragment StoreEntitySet="UserAnswer">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="Is_Answer" ColumnName="Is_Answer" />
+          <ScalarProperty Name="UserAnswerText" ColumnName="UserAnswerText" />
+          <ScalarProperty Name="UserAnswerID" ColumnName="UserAnswerID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

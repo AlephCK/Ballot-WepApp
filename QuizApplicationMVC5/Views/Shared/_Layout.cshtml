@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Ballot</title>
+
+    <link href="~/Content/Chart.min.css" rel="stylesheet" />
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
@@ -53,6 +56,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Inicio", "SelectQuizz", "Quizz")</li>
+                        <li>@Html.ActionLink("Estadísticas", "Statistics", "Quizz")</li>
 
                         @if (User.IsInRole("Admin"))
                         {
@@ -80,6 +84,10 @@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+
     @RenderSection("scripts", required: false)
     @RenderSection("MyScritps", required: false)
 </body>

@@ -190,7 +190,7 @@ namespace QuizApplicationMVC5.Controllers
         [Authorize(Roles = "Admin,NormalUser")]
         public ActionResult QuizTest(List<QuizAnswersVM> resultQuiz)
         {
-            List<QuizAnswersVM> finalResultQuiz = new List<viewModels.QuizAnswersVM>();
+            List<QuizAnswersVM> finalResultQuiz = new List<QuizAnswersVM>();
 
             foreach (QuizAnswersVM answser in resultQuiz)
             {
@@ -203,9 +203,51 @@ namespace QuizApplicationMVC5.Controllers
                 }).FirstOrDefault();
 
                 finalResultQuiz.Add(result);
-            }
 
+                try
+                {
+                    bool chech_answer = dbContext.Answers.Select(x => x.AnswerText).ToList().Contains(answser.AnswerQ);
+
+                    var update_resultados = resultQuiz.Where(x => x.AnswerQ == answser.AnswerQ).Select(y => new UserAnswer
+                    {
+                        QuestionID = y.QuestionID,
+                        UserAnswerText = y.AnswerQ,
+                        Is_Answer = chech_answer
+
+                    }).FirstOrDefault();
+
+                    dbContext.UserAnswers.Add(update_resultados);
+
+                    dbContext.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+            }
             return Json(new { result = finalResultQuiz }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin,NormalUser")]
+        public ActionResult Statistics()
+        {
+            var listado_estadisticas = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Gráfico Circular", Value = "pie"},
+                new SelectListItem { Text = "Gráfico de Área Polar", Value = "polarArea"},
+                new SelectListItem { Text = "Barras Verticales", Value = "bar"},
+                new SelectListItem { Text = "Gráfico de Linea", Value = "line"},
+                new SelectListItem { Text = "Radar", Value = "radar"},
+            }, "Value", "Text");
+
+            ViewBag.listado_estadisticas = listado_estadisticas;
+
+            ViewBag.C_Choices = dbContext.UserAnswers.Where(x => x.Is_Answer == true).Count();
+            ViewBag.I_Choices = dbContext.UserAnswers.Where(x => x.Is_Answer == false).Count();
+
+            return View();
         }
 
 

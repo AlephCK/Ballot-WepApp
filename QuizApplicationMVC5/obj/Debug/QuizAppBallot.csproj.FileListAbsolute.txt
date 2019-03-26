@@ -409,6 +409,6 @@ C:\Users\rcrondon\Desktop\Ballot-WepApp-master\Ballot-WepApp\QuizApplicationMVC5
 C:\Users\rcrondon\Desktop\Ballot-WepApp-master\Ballot-WepApp\QuizApplicationMVC5\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\rcrondon\Desktop\Ballot-WepApp-master\Ballot-WepApp\QuizApplicationMVC5\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\rcrondon\Desktop\Ballot-WepApp-master\Ballot-WepApp\QuizApplicationMVC5\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\rcrondon\Desktop\Ballot-WepApp-master\Ballot-WepApp\QuizApplicationMVC5\obj\Debug\QuizAppBallot.csprojResolveAssemblyReference.cache
 C:\Users\rcrondon\Desktop\Ballot-WepApp-master\Ballot-WepApp\QuizApplicationMVC5\obj\Debug\QuizApplicationMVC5.dll
 C:\Users\rcrondon\Desktop\Ballot-WepApp-master\Ballot-WepApp\QuizApplicationMVC5\obj\Debug\QuizApplicationMVC5.pdb
+C:\Users\rcrondon\Desktop\Ballot-WepApp-master\Ballot-WepApp\QuizApplicationMVC5\obj\Debug\QuizAppBallot.csprojResolveAssemblyReference.cache

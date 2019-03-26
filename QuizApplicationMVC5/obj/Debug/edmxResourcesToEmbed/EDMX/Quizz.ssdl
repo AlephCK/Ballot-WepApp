@@ -37,8 +37,9 @@
     <Key>
       <PropertyRef Name="UserAnswerID" />
     </Key>
-    <Property Name="UserAnswerID" Type="int" Nullable="false" />
+    <Property Name="UserAnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserAnswerText" Type="varchar(max)" Nullable="false" />
+    <Property Name="Is_Answer" Type="bit" Nullable="false" />
     <Property Name="QuestionID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">

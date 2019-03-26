@@ -5,7 +5,6 @@
     <EntitySet Name="Choices" EntityType="DBQuizModel.Choice" />
     <EntitySet Name="Questions" EntityType="DBQuizModel.Question" />
     <EntitySet Name="Quizs" EntityType="DBQuizModel.Quiz" />
-    <EntitySet Name="UserAnswers" EntityType="DBQuizModel.UserAnswer" />
     <EntitySet Name="Users" EntityType="DBQuizModel.User" />
     <AssociationSet Name="FK_Answers_Questions" Association="DBQuizModel.FK_Answers_Questions">
       <End Role="Question" EntitySet="Questions" />
@@ -19,6 +18,7 @@
       <End Role="Quiz" EntitySet="Quizs" />
       <End Role="Question" EntitySet="Questions" />
     </AssociationSet>
+    <EntitySet Name="UserAnswers" EntityType="DBQuizModel.UserAnswer" />
     <AssociationSet Name="FK_UserAnswer_Questions" Association="DBQuizModel.FK_UserAnswer_Questions">
       <End Role="Question" EntitySet="Questions" />
       <End Role="UserAnswer" EntitySet="UserAnswers" />
@@ -63,15 +63,6 @@
     <Property Name="Category" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
     <Property Name="Author" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Questions" Relationship="DBQuizModel.FK_Questions_Quiz" FromRole="Quiz" ToRole="Question" />
-  </EntityType>
-  <EntityType Name="UserAnswer">
-    <Key>
-      <PropertyRef Name="UserAnswerID" />
-    </Key>
-    <Property Name="UserAnswerID" Type="Int32" Nullable="false" />
-    <Property Name="UserAnswerText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="QuestionID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Question" Relationship="DBQuizModel.FK_UserAnswer_Questions" FromRole="UserAnswer" ToRole="Question" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -120,6 +111,16 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="UserAnswer">
+    <Key>
+      <PropertyRef Name="UserAnswerID" />
+    </Key>
+    <Property Name="UserAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserAnswerText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Is_Answer" Type="Boolean" Nullable="false" />
+    <Property Name="QuestionID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Question" Relationship="DBQuizModel.FK_UserAnswer_Questions" FromRole="UserAnswer" ToRole="Question" />
+  </EntityType>
   <Association Name="FK_UserAnswer_Questions">
     <End Type="DBQuizModel.Question" Role="Question" Multiplicity="1" />
     <End Type="DBQuizModel.UserAnswer" Role="UserAnswer" Multiplicity="*" />

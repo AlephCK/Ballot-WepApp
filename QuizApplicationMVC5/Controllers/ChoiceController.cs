@@ -15,6 +15,7 @@ namespace QuizApplicationMVC5.Controllers
         private DBQuizEntities db = new DBQuizEntities();
 
         // GET: Choice
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var choices = db.Choices.Include(c => c.Question);
@@ -22,6 +23,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         // GET: Choice/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         // GET: Choice/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "QuestionText");
@@ -62,6 +65,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         // GET: Choice/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,6 +99,7 @@ namespace QuizApplicationMVC5.Controllers
         }
 
         // GET: Choice/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

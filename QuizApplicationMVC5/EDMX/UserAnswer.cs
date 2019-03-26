@@ -16,6 +16,7 @@ namespace QuizApplicationMVC5.EDMX
     {
         public int UserAnswerID { get; set; }
         public string UserAnswerText { get; set; }
+        public bool Is_Answer { get; set; }
         public int QuestionID { get; set; }
     
         public virtual Question Question { get; set; }

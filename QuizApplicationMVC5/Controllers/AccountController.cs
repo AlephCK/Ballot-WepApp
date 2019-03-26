@@ -70,7 +70,7 @@ namespace QuizApplicationMVC5.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(returnUrl);
             }
 
             // This doesn't count login failures towards account lockout

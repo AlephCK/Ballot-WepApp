@@ -83,7 +83,5 @@ namespace QuizApplicationMVC5.viewModels
         public string QuestionText { get; set; }
         public string AnswerQ { get; set; }
         public bool isCorrect { get; set; }
-
-
     }
 }

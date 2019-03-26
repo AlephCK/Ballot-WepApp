@@ -181,8 +181,9 @@ ALTER TABLE [dbo].[Users]  WITH CHECK ADD CHECK  (([TypeUser]='Admin' OR [TypeUs
 GO
 
 CREATE TABLE [dbo].[UserAnswer](
-	[UserAnswerID] [int] NOT NULL,
+	[UserAnswerID] [int] IDENTITY(1,1) NOT NULL,
 	[UserAnswerText] [varchar](max) NOT NULL,
+	[Is_Answer] [bit] NOT NULL,
 	[QuestionID] [int] NOT NULL,
  CONSTRAINT [PK_UserAnswer] PRIMARY KEY CLUSTERED 
 (
