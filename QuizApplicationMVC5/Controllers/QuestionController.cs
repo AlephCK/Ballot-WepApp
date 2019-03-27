@@ -17,12 +17,38 @@ namespace QuizApplicationMVC5.Controllers
         // GET: Question
         [Authorize(Roles = "Admin")]
 
-
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string searchString)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             var questions = db.Questions.Include(q => q.Quiz);
+            questions = from q in db.Questions
+                        select q;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                questions = questions.Where(q => q.QuestionText.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    questions = questions.OrderByDescending(q => q.QuestionText);
+                    break;
+                case "Quiz":
+                    questions = questions.OrderByDescending(q => q.Quiz.QuizName);
+                    break;
+                default:
+                    questions = questions.OrderBy(q => q.QuestionText);
+                    break;
+            }
             return View(questions.ToList());
         }
+
+
+        //public ActionResult Index()
+        //{
+        //    var questions = db.Questions.Include(q => q.Quiz);
+        //    return View(questions.ToList());
+        //}
 
         // GET: Question/Details/5
         [Authorize(Roles = "Admin")]

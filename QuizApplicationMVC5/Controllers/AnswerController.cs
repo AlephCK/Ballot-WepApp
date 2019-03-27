@@ -16,11 +16,38 @@ namespace QuizApplicationMVC5.Controllers
 
         // GET: Answer
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    var answers = db.Answers.Include(a => a.Question);
+        //    return View(answers.ToList());
+        //}
+
+        public ViewResult Index(string sortOrder, string searchString)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             var answers = db.Answers.Include(a => a.Question);
+            answers = from q in db.Answers
+                      select q;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                answers = answers.Where(q => q.AnswerText.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    answers = answers.OrderByDescending(q => q.AnswerText);
+                    break;
+                case "Question":
+                    answers = answers.OrderByDescending(q => q.Question.QuestionText);
+                    break;
+                default:
+                    answers = answers.OrderBy(q => q.AnswerText);
+                    break;
+            }
             return View(answers.ToList());
         }
+
 
         // GET: Answer/Details/5
         [Authorize(Roles = "Admin")]

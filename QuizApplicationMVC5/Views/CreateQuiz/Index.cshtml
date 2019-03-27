@@ -4,7 +4,7 @@
     ViewBag.Title = "Quizs";
 }
 
-<h1 style="color: #207ce5;">Quiz</h1>
+<h1>Quiz</h1>
 
 <p>
     @Html.ActionLink("Crear Nuevo Quiz", "Create")
@@ -12,8 +12,8 @@
 @using (Html.BeginForm())
 {
 <p>
-    Find by Quizz Name: @Html.TextBox("SearchString")
-    <button type="button" class="btn btn-light" value="Search">Buscar</button>
+    Buscar por nombre del Quiz: @Html.TextBox("SearchString")
+    <input type="submit" value="Search" />
 </p>
 }
 

@@ -9,14 +9,21 @@
 <p>
     @Html.ActionLink("Create Nueva Pregunta", "Create")
 </p>
+@using (Html.BeginForm())
+{
+<p>
+    Buscar por pregunta: @Html.TextBox("SearchString")
+    <input type="submit" value="Search" />
+</p>
+}
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayName("Pregunta")
+            @Html.ActionLink("Pregunta", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayName("Quiz")
+            @Html.ActionLink("Quiz", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th></th>
     </tr>
