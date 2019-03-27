@@ -16,9 +16,33 @@ namespace QuizApplicationMVC5.Controllers
 
         // GET: CreateQuiz
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+
+        public ViewResult Index(string sortOrder, string searchString)
         {
-            return View(db.Quizs.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            var quizz = from q in db.Quizs
+                           select q;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                quizz = quizz.Where(q => q.QuizName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    quizz = quizz.OrderByDescending(q => q.QuizName);
+                    break;
+                case "author":
+                    quizz = quizz.OrderByDescending(q => q.Author);
+                    break;
+                case "category":
+                    quizz = quizz.OrderByDescending(q => q.Category);
+                    break;
+                default:
+                    quizz = quizz.OrderBy(q => q.QuizName);
+                    break;
+            }
+            return View(quizz.ToList());
         }
 
         // GET: CreateQuiz/Details/5

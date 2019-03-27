@@ -6,19 +6,23 @@
 
 <br>
 
-<div class="control-group" align="center">
-    @Html.Label("Seleccione la Estadística a Visualizar")
-    @Html.DropDownList("seleccion", ViewBag.listado_estadisticas as IEnumerable<SelectListItem>, new { id = "seleccion_estadistica", @class = "form-control" })
 
-    <br>
-    <canvas id="visualizar_estadistica"></canvas>
-</div>
 
-@Html.Hidden("I_Choices", (int)ViewBag.I_Choices)
+    <div class="control-group" align="center">
+        @Html.Label("Seleccione la Estadística a Visualizar")
+        @Html.DropDownList("seleccion", ViewBag.listado_estadisticas as IEnumerable<SelectListItem>, new { id = "seleccion_estadistica", @class = "form-control" })
 
-@Html.Hidden("C_Choices", (int)ViewBag.C_Choices)
+        <br>
+        <canvas id="visualizar_estadistica"></canvas>
+    </div>
+
+    @Html.Hidden("I_Choices", (int)ViewBag.I_Choices)
+
+    @Html.Hidden("C_Choices", (int)ViewBag.C_Choices)
+
 
 @section scripts
 {
+
     <script src="~/Scripts/Manejador_Estadisticas.js"></script>
 }

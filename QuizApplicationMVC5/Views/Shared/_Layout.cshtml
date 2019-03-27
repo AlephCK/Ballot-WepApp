@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - Ballot</title>
 
     <link href="~/Content/Chart.min.css" rel="stylesheet" />
-
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
@@ -43,6 +43,31 @@
 
     @if (User.Identity.IsAuthenticated)
     {
+
+    @*<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand">Ballot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active">@Html.ActionLink("Inicio", "SelectQuizz", "Quizz") <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link">@Html.ActionLink("Estadísticas", "Statistics", "Quizz")</a>
+
+                @if (User.IsInRole("Admin"))
+            {
+                <a class="nav-item nav-link">@Html.ActionLink("Quiz", "Index", "CreateQuiz")</a>
+                <a class="nav-item nav-link">@Html.ActionLink("Preguntas", "Index", "Question")</a>
+                <a class="nav-item nav-link">@Html.ActionLink("Opciones", "Index", "Choice")</a>
+                <a class="nav-item nav-link">@Html.ActionLink("Respuestas", "Index", "Answer")</a>
+        }
+                @Html.Partial("_LoginPartial")
+
+            </div>
+        </div>
+    </nav>*@
+
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -77,18 +102,31 @@
         @if (User.Identity.IsAuthenticated)
         {
             <hr />
-            <footer>
+            @*<footer>
                 <p><b>&copy; @DateTime.Now.Year - Ballot</b></p>
-            </footer>
+            </footer>*@
         }
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
 
-    <script src="~/Scripts/Chart.min.js"></script>
-    <script src="~/Scripts/jquery.min.js"></script>
+    <div class="footer navbar-fixed-bottom">
+        @*@RenderBody()*@
+        @if (User.Identity.IsAuthenticated)
+    {
+        @*<hr />*@
+        <footer>
+            <p> <span><b>&ensp; &copy;@DateTime.Now.Year - Ballot</b></span></p>
+        </footer>
+}
 
-    @RenderSection("scripts", required: false)
-    @RenderSection("MyScritps", required: false)
+
+    </div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+
+        <script src="~/Scripts/Chart.min.js"></script>
+        <script src="~/Scripts/jquery.min.js"></script>
+
+        @RenderSection("scripts", required: false)
+        @RenderSection("MyScritps", required: false)
 </body>
 </html>

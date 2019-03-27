@@ -16,6 +16,8 @@ namespace QuizApplicationMVC5.Controllers
 
         // GET: Question
         [Authorize(Roles = "Admin")]
+
+
         public ActionResult Index()
         {
             var questions = db.Questions.Include(q => q.Quiz);
