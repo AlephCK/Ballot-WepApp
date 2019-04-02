@@ -9,50 +9,42 @@
 <p>
     @Html.ActionLink("Crear Nuevo Quiz", "Create")
 </p>
-@using (Html.BeginForm())
-{
-<p>
-    Buscar por nombre del Quiz: @Html.TextBox("SearchString")
-    <input type="submit" value="Search" />
-</p>
-}
 
 
-<table class="table">
-
-    <tr class="bg-primary">
-        <th>
-            @Html.ActionLink("Nombre del Quiz", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Categoría", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Autor", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuizName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.QuizID }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.QuizID }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.QuizID })
-            </td>
+<table class="table" id="tabla">
+    <thead>
+        <tr class="bg-primary">
+            <th>
+                Nombre del Quiz
+            </th>
+            <th>
+                Categoría
+            </th>
+            <th>
+                Autor
+            </th>
+            <th></th>
         </tr>
-    }
-
-
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuizName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.QuizID }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.QuizID }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.QuizID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

@@ -10,40 +10,34 @@
     @Html.ActionLink("Crear Nueva Respuesta", "Create")
 </p>
 
-@using (Html.BeginForm())
-{
-<p>
-    Buscar por respuesta: @Html.TextBox("SearchString")
-    <input type="submit" value="Search" />
-    </p>
-}
-
-    <table class="table">
-        <tr>
-            <th>
-                @Html.ActionLink("Respuesta", "Index", new { sortOrder = ViewBag.NameSortParm })
-            </th>
-            <th>
-                @Html.ActionLink("Pregunta", "Index", new { sortOrder = ViewBag.NameSortParm })
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnswerText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question.QuestionText)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.AnswerID }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.AnswerID }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.AnswerID })
-            </td>
-        </tr>
-}
-
-    </table>
+    <table class="table" id="tabla">
+        <thead>
+            <tr>
+                <th>
+                    Respuesta
+                </th>
+                <th>
+                    Pregunta
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AnswerText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Question.QuestionText)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.AnswerID }) |
+                        @Html.ActionLink("Detalles", "Details", new { id = item.AnswerID }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.AnswerID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+</table>

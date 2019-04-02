@@ -7,6 +7,10 @@
 
     <link href="~/Content/Chart.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/datatables.min.css" rel="stylesheet" />
+
+    <link href="~/Content/sumoselect.css" rel="stylesheet" />
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
@@ -126,7 +130,21 @@
         <script src="~/Scripts/Chart.min.js"></script>
         <script src="~/Scripts/jquery.min.js"></script>
 
+        <script src="~/Scripts/datatables.min.js"></script>
+
+        <script src="~/Scripts/dataTables.buttons.min.js"></script>
+        <script src="~/Scripts/buttons.html5.min.js"></script>
+
+        <script src="~/Scripts/jszip.min.js"></script>
+        <script src="~/Scripts/pdfmake.js"></script>
+        <script src="~/Scripts/vfs_fonts.js"></script>
+
+        <script src="~/Scripts/jquery.sumoselect.min.js"></script>
+
         @RenderSection("scripts", required: false)
         @RenderSection("MyScritps", required: false)
+
+        <script src="~/Scripts/InicializadorDataTable.js"></script>
+
 </body>
 </html>

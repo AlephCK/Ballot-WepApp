@@ -229,6 +229,33 @@ namespace QuizApplicationMVC5.Controllers
             return Json(new { result = finalResultQuiz }, JsonRequestBehavior.AllowGet);
         }
 
+        private int[] getFormatoListado(string list_id)
+        {
+            var allowedChars = "01234567890,";
+            list_id = new string(list_id.Where(c => allowedChars.Contains(c)).ToArray());
+            
+            return list_id.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+        }
+
+        public JsonResult ObtenerDatos(string data)
+        {
+            int c_result = 0;
+            int i_result = 0;
+
+            if(data != "[]")
+            {
+                int[] listado_ids = getFormatoListado(data);
+
+                foreach (int id in listado_ids)
+                {
+                    c_result += dbContext.UserAnswers.Where(x => x.Is_Answer == true && x.QuestionID == id).Count();
+                    i_result += dbContext.UserAnswers.Where(x => x.Is_Answer == false && x.QuestionID == id).Count();
+                }
+            }
+
+            return Json( new { c_result = c_result, i_result = i_result }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         [Authorize(Roles = "Admin,NormalUser")]
         public ActionResult Statistics()
@@ -243,6 +270,14 @@ namespace QuizApplicationMVC5.Controllers
             }, "Value", "Text");
 
             ViewBag.listado_estadisticas = listado_estadisticas;
+
+            var listado_preguntas = dbContext.Questions.ToList().Select(u => new SelectListItem
+            {
+                Text = u.QuestionText,
+                Value = u.QuestionID.ToString()
+            });
+
+            ViewBag.listado_preguntas = listado_preguntas;
 
             ViewBag.C_Choices = dbContext.UserAnswers.Where(x => x.Is_Answer == true).Count();
             ViewBag.I_Choices = dbContext.UserAnswers.Where(x => x.Is_Answer == false).Count();

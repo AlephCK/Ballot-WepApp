@@ -10,40 +10,34 @@
     @Html.ActionLink("Crear Nueva Opción", "Create")
 </p>
 
-@using (Html.BeginForm())
-{
-<p>
-    Buscar por Opcion: @Html.TextBox("SearchString")
-    <input type="submit" value="Search" />
-</p>
-}
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Opción", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Pregunta", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table" id="tabla">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChoiceText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question.QuestionText)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ChoiceID }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.ChoiceID }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.ChoiceID })
-            </td>
+            <th>
+                Opción
+            </th>
+            <th>
+                Pregunta
+            </th>
+            <th></th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChoiceText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Question.QuestionText)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ChoiceID }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.ChoiceID }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ChoiceID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
